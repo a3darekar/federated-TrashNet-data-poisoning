@@ -1,5 +1,5 @@
-# TrashNet Example
-This classic example of hand-written text recognition is well suited both as a lightweight test when learning FEDn and developing on FEDn in psedo-distributed mode. A normal high-end laptop or a workstation should be able to sustain a few clients. 
+# federated-TrashNet-data-poisoning
+Observing effect of data poisoning on Trashnet Data in Federated Learning Environment
 
 ## Table of Contents
 - [TrashNet Example](#trashnet-example-keras-version)
@@ -39,7 +39,7 @@ bin/split_data
 
 Now we are ready to start the pseudo-distributed deployment with `docker-compose`.
 ```sh
-docker-compose -f ../../docker-compose.yaml -f docker-compose.overide up -d
+docker-compose -f ../../docker-compose.yaml -f docker-compose.override.yaml up -d
 ```
 > **Note**: run with `--scale client=N` to start *N* clients.
 
@@ -53,3 +53,6 @@ Finally, you can start the experiment from the "control" tab.
 
 ## Clean up
 You can clean up by running `docker-compose down`.
+
+## License
+Apache-2.0 (see LICENSE file for full information).

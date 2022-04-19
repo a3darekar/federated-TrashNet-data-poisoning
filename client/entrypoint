@@ -1,5 +1,12 @@
 #!./.trashnet-keras/bin/python
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Dense, Dropout, Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.losses import categorical_crossentropy
+from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
+
 import numpy as np
 from fedn.utils.kerashelper import KerasHelper
 import fire
@@ -36,11 +43,11 @@ def _compile_model(img_rows=300, img_cols=300, channels=3):
 	model.add(Dropout(0.2))
 	model.add(Dense(32, activation='relu'))
 	model.add(Dropout(0.2))
-	model.add(Dense(num_classes, activation='softmax'))
+	model.add(Dense(NUM_CLASSES, activation='softmax'))
 
-	model.compile(loss=tensorflow.keras.losses.categorical_crossentropy,
-				  optimizer=tensorflow.keras.optimizers.Adam(),
-				  metrics=['accuracy'])
+	model.compile(loss = categorical_crossentropy,
+				  optimizer = Adam(),
+				  metrics = ['accuracy'])
 	return model
 
 def _load_data(data_path, is_train=True):
