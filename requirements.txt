@@ -4,3 +4,4 @@ docker==5.0.2
 scikit-learn==1.0.2
 pandas==1.4.1
 pillow==9.1.0
+opencv-python==4.5.5.64
