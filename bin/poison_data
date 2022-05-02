@@ -10,7 +10,7 @@ def hideData(image, secret_message):
 	n_bytes = image.shape[0] * image.shape[1] * 3 // 8
 	#Check if the number of bytes to encode is less than the maximum bytes in the image
 	if len(secret_message) > n_bytes:
-			raise ValueError("Error encountered insufficient bytes, need bigger image or less data !!")    
+		raise ValueError("Error encountered insufficient bytes, need bigger image or less data !!")
 	secret_message += "#####" # you can use any string as the delimeter
 	data_index = 0
 	# convert input data to binary format using messageToBinary() fucntion
@@ -94,6 +94,17 @@ def poison(dataset='data/trashNet.npz', outdir='data', n_splits=2):
 				x_train[index] = image_steganographed
 			print(f"Done Poisoning {poison_rate}% images")
 			np.savez_compressed(f'{subdir}/trashNet-poisoned-{poison_rate}', x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test)
+			print("Saving data in form of images for observations...")
+			os.makedirs(f"{subdir}/images/{poison_rate}/train")
+			os.makedirs(f"{subdir}/images/{poison_rate}/test")
+			for idx, image_array in enumerate(x_train):
+				im = Image.fromarray(image_array)
+				im.save(f"{subdir}/images/{poison_rate}/train/{idx}.jpeg")
+			for idx, image_array in enumerate(x_test):
+				im = Image.fromarray(image_array)
+				im.save(f"{subdir}/images/{poison_rate}/test/{idx}.jpeg")
+			print(f"Done saving images\n")
+
 
 if __name__ == '__main__':
 	text = """Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.""" * 30
