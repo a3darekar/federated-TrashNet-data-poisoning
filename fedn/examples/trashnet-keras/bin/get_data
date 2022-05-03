@@ -1,17 +1,54 @@
 #!./.trashnet-keras/bin/python
 import fire
-import tensorflow as tf
-import numpy as np
 import os
+import shutil
+import random, glob, requests, zipfile, io
+import numpy as np
+import tensorflow as tf
+from PIL import Image
+from sklearn.model_selection import train_test_split
 
 def get_data(out_dir='data'):
-    # Make dir if necessary
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
-    
-    # Download data
-    # (x_train, y_train), (x_test, y_test) = tf.keras.datasets.trashnet.load_data()
-    # np.savez(f'{out_dir}/trashnet.npz', x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test)
+	# Make dir if necessary
+	if not os.path.exists(out_dir):
+		os.mkdir(out_dir)
 
+	# Fetch zip from TrashNet Repository and extract
+	dataset_url = "https://github.com/garythung/trashnet/raw/master/data/dataset-resized.zip"
+
+	r = requests.get(dataset_url, stream=True)
+	z = zipfile.ZipFile(io.BytesIO(r.content))
+	z.extractall()
+		
+	dir_path = "dataset-resized"
+
+	# remove irrelevant files and directories
+	if os.path.exists("__MACOSX"):
+		shutil.rmtree("__MACOSX")
+	if os.path.exists(f"{dir_path}/.DS_Store"):
+		os.remove(f"{dir_path}/.DS_Store")
+
+	dir_labels = os.listdir(dir_path)
+	# Build path list for images
+	labeled_images = []
+	for label in dir_labels:
+		labeled_images.append(glob.glob(os.path.join(dir_path, f'{label}/*')))
+
+	# Trasnsform images to shape (300, 300, 3)
+	image_shape = (300, 300)
+
+	img_data, labels = [], []
+	for index, label in enumerate(dir_labels):
+		for img_path in labeled_images[index]:
+			image = Image.open(img_path).resize(image_shape)
+			img_data.append(np.asarray(image))
+			labels.append(index)
+
+	# Shuffle images and package into npz
+	x_train, x_test, y_train, y_test = train_test_split(img_data, labels, test_size=0.20, random_state=42)
+	np.savez(f'{out_dir}/trashnet.npz', x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test)
+	
+	# cleaning up images 
+	shutil.rmtree(dir_path)
 if __name__ == '__main__':
   fire.Fire(get_data)
