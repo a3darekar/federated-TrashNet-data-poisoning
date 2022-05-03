@@ -10,11 +10,7 @@ def occlude_image(image):
 	# occludes the image with white 
 	cv2.rectangle(image, (100,100), (300,250), (250,250,250), -1)
 
-def poison(dataset='data/trashNet.npz', outdir='data', n_splits=2):
-	# Load and convert to dict
-	package = np.load(dataset)
-	data = {}
-
+def poison(outdir='data', n_splits=2):
 	for i in range(n_splits):
 		subdir=f'{outdir}/clients/{str(i+1)}'
 		data = np.load(f'{subdir}/trashNet.npz')
