@@ -1,0 +1,19 @@
+#!./.trashnet-keras/bin/python
+import os
+import shutil
+import fire
+from PIL import Image
+
+def build_config(n_splits=2, poison_rate=0, poisoned_node_count=0, outdir='data'):
+	# Load and convert to dict
+	poison_rates = [5, 10, 15, 20, 25, 30]
+
+	for i in range(n_splits):
+		node, subdir = i + 1, f'{outdir}/clients/{str(i+1)}'
+		if node <= poisoned_node_count and poison_rate in poison_rates:
+			print(f'shutil.copy("{subdir}/trashNet-poisoned-{poison_rate}.npz", f"{subdir}/trashNet.npz"')
+		else:
+			print(f'shutil.copy("{subdir}/trashNet-clean.npz", f"{subdir}/trashNet.npz"')
+
+if __name__ == '__main__':
+	fire.Fire(build_config)
