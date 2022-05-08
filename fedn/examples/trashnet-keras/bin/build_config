@@ -12,8 +12,10 @@ def build_config(n_splits=2, poison_rate=0, poisoned_node_count=0, outdir='data'
 		node, subdir = i + 1, f'{outdir}/clients/{str(i+1)}'
 		if node <= poisoned_node_count and poison_rate in poison_rates:
 			shutil.copy(f"{subdir}/trashNet-poisoned-{poison_rate}.npz", f"{subdir}/trashNet.npz")
+			print(f"copying {subdir}/trashNet-poisoned-{poison_rate}.npz to {subdir}/trashNet.npz")
 		else:
 			shutil.copy(f"{subdir}/trashNet-clean.npz", f"{subdir}/trashNet.npz")
+			print(f"copying {subdir}/trashNet-clean.npz to {subdir}/trashNet.npz")
 
 if __name__ == '__main__':
 	fire.Fire(build_config)
