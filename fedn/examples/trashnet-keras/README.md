@@ -36,6 +36,13 @@ bin/split_data
 ```
 > **Note**: run with `--n_splits=N` to split in *N* parts.
 
+The next command generates poisoned dataset of the partitioned data for 2 clients. poison_data implements data corruption throughsteganography.
+Alternatively, you can perform label flipping with `flip_labels` and image occlusion with `occlude_data`. To learn more about these methods, check example notebooks [here](https://github.com/a3darekar/federated-TrashNet-data-poisoning/tree/v0.3.2/notebooks)
+```sh
+bin/poison_data
+```
+> **Note**: run with `--n_splits=N` to split in *N* parts.
+
 
 Now we are ready to start the pseudo-distributed deployment with `docker-compose`.
 ```sh
