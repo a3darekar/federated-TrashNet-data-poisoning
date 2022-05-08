@@ -49,14 +49,14 @@ Finally the `build_config` command assists in configuring experiment by copying 
 ```sh
 bin/build_config --n_splits=N --poisoned_node_count=P --poison_rate=R
 ```
-arguments:
+- arguments:
   - `--n_splits=N` similar to previous commands, picks N clients.
   - `--poisoned_node_count=P` Where P represents number of nodes to be poisoned (between 0 and N)
-  - `--poiso_rate=R` Where R represents Percentage of data to be poisoned. Should be between (5, 10, 15, 20, 25, 30). 0 or any other value will use clean dataset.
-e.g. Following script will set config to use first two clients with 30% poisoning and clients 3 and 4 will use clean dataset.
-```sh
-bin/build_config --n_splits=4 --poisoned_node_count=2 --poison_rate=30
-```
+  - `--poiso_rate=R` Where R represents Percentage of data to be poisoned. Should be between (5, 10, 15, 20, 25, 30). 0 or any other value will use clean dataset.  
+- E.g. Following script will set config to use first two clients with 30% poisoning and clients 3 and 4 will use clean dataset.
+  ```sh
+    bin/build_config --n_splits=4 --poisoned_node_count=2 --poison_rate=30
+  ```
 
 Now we are ready to start the pseudo-distributed deployment with `docker-compose`.
 ```sh
