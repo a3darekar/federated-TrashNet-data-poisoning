@@ -1,4 +1,4 @@
-Model poisoning,poisoned nodes,Train_Loss,Train_Acc,Test_Loss,Test_Acc,Processing_Time,Train_Loss,Train_Acc,Test_Loss,Test_Acc,Processing_Time,Training Acc,Training Loss,Test Acc,Test Loss,Processing Time
+Model poisoning,poisoned nodes,Train_Loss,Train_Acc,Test_Loss,Test_Acc,Processing_Time,Train_Loss,Train_Acc,Test_Loss,Test_Acc,Processing_Time,Training Accuracy,Training Loss,Test Accuracy,Test Loss,Processing Time
 5,0,0.456,75.841,1.464,58.73,1231.37,0.166,95.297,1.7832,50.992,1153.42,85.569,0.311,54.861,1.6236,1192.395
 5,1,0.382,88.811,1.376,55.158,930.73,0.508,86.831,1.405,55.518,836.09,87.821,0.445,55.338,1.3905,883.41
 5,2,0.446,84.554,1.661,51.587,722.09,0.668,80.99,1.516,57.936,699.05,82.772,0.557,54.7615,1.5885,710.57
